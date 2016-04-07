@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Explosion : Bullet
  {
-    void Start()
+    public new void Start()
     {
         lifeTime = 2;
         StartCoroutine("DeathTimer");

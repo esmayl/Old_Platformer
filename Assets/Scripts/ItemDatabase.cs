@@ -18,9 +18,9 @@ public class ItemDatabase : MonoBehaviour
 	void Start ()
     {
 
-        ItemDatabase.AddToList("MeleeEnemy", items[0]);
+        ItemDatabase.AddToList("MeleeEnemy", items[2]);
         ItemDatabase.AddToList("Turret", items[1]);
-        ItemDatabase.AddToList("RangedEnemy", items[2]);
+        ItemDatabase.AddToList("RangedEnemy", items[0]);
 	}
 
     public static void AddToList(string enemyName, GameObject item)

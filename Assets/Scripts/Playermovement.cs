@@ -48,7 +48,8 @@ public class PlayerMovement : MonoBehaviour {
 
 
     //damage variables
-    internal bool attack = false;
+    internal bool attack1 = false;
+    internal bool attack2 = false;
     bool canTakeDmg = true;
 
     Color baseColor;
@@ -133,8 +134,11 @@ public class PlayerMovement : MonoBehaviour {
                         }
                         break;
 
-                    case ActionType.Attack:
-                        attack = true;
+                    case ActionType.Attack1:
+                        attack1 = true;
+                        break;
+                    case ActionType.Attack2:
+                        attack2 = true;
                         break;
                 }
             }

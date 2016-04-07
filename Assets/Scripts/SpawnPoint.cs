@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnPoint : MonoBehaviour {
+public class SpawnPoint : MonoBehaviour
+{
 
     public GameObject player;
     public GameObject camera;
     public float cameraRange = 8;
 
-	void Start () {
+	void Start ()
+	{
+
+
         GameObject playerInstance = new GameObject();
         GameObject cameraInstance = new GameObject();
 

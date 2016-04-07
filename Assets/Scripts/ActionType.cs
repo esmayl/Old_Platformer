@@ -3,6 +3,7 @@
     MoveL,
     MoveR,
     Jump,
-    Attack,
+    Attack1,
+    Attack2,
     NoAction
 }

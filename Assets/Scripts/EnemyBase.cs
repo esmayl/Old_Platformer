@@ -216,7 +216,7 @@ public class EnemyBase : MonoBehaviour {
         currentState = EnemyStates.Patrol;
     }
 
-    public virtual void Attack(Vector3 Direction) 
+    public virtual void Attack() 
     {
 
         if (!player)
@@ -301,7 +301,7 @@ public class EnemyBase : MonoBehaviour {
                     StartCoroutine("Idle");
                     break;
                 case EnemyStates.Attack:
-                    Attack(transform.forward);
+                    Attack();
                     break;
                 case EnemyStates.AttackAtPlayer:
                     MoveToPlayer(player.transform);

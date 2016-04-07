@@ -1,3 +1,6 @@
+// Upgrade NOTE: commented out 'float4x4 _WorldToCamera', a built-in variable
+// Upgrade NOTE: replaced '_WorldToCamera' with 'unity_WorldToCamera'
+
 Shader "Hidden/Image Effects/Cinematic/AmbientOcclusion"
 {
     Properties
@@ -25,7 +28,7 @@ Shader "Hidden/Image Effects/Cinematic/AmbientOcclusion"
 
     // The constant below controls the geometry-awareness of the blur filter.
     // The higher value, the more sensitive it is.
-    static const float kGeometry = 50;
+    static const float kGeom = 50;
 
     // The constants below are used in the AO estimator. Beta is mainly used
     // for suppressing self-shadowing noise, and Epsilon is used to prevent
@@ -54,7 +57,7 @@ Shader "Hidden/Image Effects/Cinematic/AmbientOcclusion"
     #if _SOURCE_GBUFFER
     sampler2D _CameraGBufferTexture2;
     sampler2D_float _CameraDepthTexture;
-    float4x4 _WorldToCamera;
+    // float4x4 _WorldToCamera;
     #else
     sampler2D_float _CameraDepthNormalsTexture;
     #endif
@@ -128,7 +131,7 @@ Shader "Hidden/Image Effects/Cinematic/AmbientOcclusion"
     {
     #if _SOURCE_GBUFFER
         float3 norm = tex2D(_CameraGBufferTexture2, uv).xyz * 2 - 1;
-        return mul((float3x3)_WorldToCamera, norm);
+        return mul((float3x3)unity_WorldToCamera, norm);
     #else
         float4 cdn = tex2D(_CameraDepthNormalsTexture, uv);
         return DecodeViewNormalStereo(cdn) * float3(1, 1, -1);
@@ -159,7 +162,7 @@ Shader "Hidden/Image Effects/Cinematic/AmbientOcclusion"
     // Normal vector comparer (for geometry-aware weighting)
     half CompareNormal(half3 d1, half3 d2)
     {
-        return pow((dot(d1, d2) + 1) * 0.5, kGeometry);
+        return pow((dot(d1, d2) + 1) * 0.5, kGeom);
     }
 
     // Final combiner function
@@ -327,8 +330,8 @@ Shader "Hidden/Image Effects/Cinematic/AmbientOcclusion"
 
     struct CombinerOutput
     {
-        half4 gbuffer0 : COLOR0;
-        half4 gbuffer3 : COLOR1;
+        half4 gbuffer0 : SV_Target0;
+        half4 gbuffer3 : SV_Target1;
     };
 
     CombinerOutput frag_gbuffer_combine(v2f_img i)

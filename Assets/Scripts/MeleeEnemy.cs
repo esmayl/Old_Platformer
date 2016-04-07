@@ -23,8 +23,8 @@ public class MeleeEnemy : EnemyBase
         testMat.SetColor("_EmissionColor", Color.green);
     }
 
-    public override void Attack(Vector3 Direction)
+    public override void Attack()
     {
-        base.Attack(Direction);
+        base.Attack();
     }
 }

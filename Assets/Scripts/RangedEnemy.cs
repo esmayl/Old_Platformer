@@ -72,7 +72,7 @@ public class RangedEnemy : EnemyBase {
                     StartCoroutine("Idle");
                     break;
                 case EnemyStates.Attack:
-                    Attack(transform.forward);
+                    Attack();
                     break;
 
                 default:

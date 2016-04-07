@@ -4,11 +4,14 @@ using System.Collections;
 public class TurretEnemy : EnemyBase {
 
     public GameObject barrel;
+    private Animation animController;
 
     public override void Start()
     {
         base.Start();
         currentState = EnemyStates.Attack;
+        animController = GetComponent<Animation>();
+        rangeToStop = range;
     }
 
     public override void Update()
@@ -33,11 +36,16 @@ public class TurretEnemy : EnemyBase {
                     {
                         if (h.gameObject.layer == LayerMask.NameToLayer("Player"))
                         {
-                            if (Physics.Raycast(new Ray(transform.position + transform.up / 4, h.transform.position - transform.position), out hit))
+                            if (Physics.Raycast(new Ray(transform.position, h.transform.position - transform.position), out hit))
                             {
+                                Debug.Log(hit.transform.name);
                                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                                 {
-                                    if (!GetComponent<Animation>().isPlaying) { GetComponent<Animation>().Play(); yield return new WaitForSeconds(1f); GetComponent<Animation>().enabled = false; }
+                                    
+                                    animController.Play();
+                                    yield return new WaitForSeconds(1f);
+                                    animController.enabled = false;
+
                                     player = h.gameObject;
                                     Vector3 playerPos = player.transform.position;
                                     currentState = EnemyStates.Attack;
@@ -63,7 +71,7 @@ public class TurretEnemy : EnemyBase {
                     StartCoroutine("Idle");
                     break;
                 case EnemyStates.Attack:
-                    Attack(transform.forward);
+                    Attack();
                     break;
                 default:
                     break;
@@ -73,20 +81,24 @@ public class TurretEnemy : EnemyBase {
         }
     }
 
-    public override void Attack(Vector3 Direction)
+    public override void Attack()
     {
+
+        // doesnt use direction
         if (!player)
         {
             currentState = EnemyStates.Idle;
             return;
         }
-            barrel.transform.LookAt(player.transform.position+transform.up/2);
 
-            //using transform.up to make sure the bullet instances above the ground
-            GameObject tempObj = Instantiate(damageDealer, transform.position + barrel.transform.forward*1.5f + transform.up*1.5f , Quaternion.identity) as GameObject;
-            tempObj.transform.LookAt(player.transform.position + transform.up / 2);
-            tempObj.GetComponent<Rigidbody>().velocity = barrel.transform.forward;
-            tempObj = null;
+        base.Attack();
+            //barrel.transform.LookAt(player.transform.position+transform.up/2);
+            //
+            ////using transform.up to make sure the bullet instances above the ground
+            //GameObject tempObj = Instantiate(damageDealer, transform.position + barrel.transform.forward*1.5f + transform.up*1.5f , Quaternion.identity) as GameObject;
+            //tempObj.transform.LookAt(player.transform.position + transform.up / 2);
+            //tempObj.GetComponent<Rigidbody>().velocity = barrel.transform.forward;
+            //tempObj = null;
     }
 
     public override void Patrol()

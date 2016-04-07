@@ -33,10 +33,17 @@ public class MobileInput : MonoBehaviour
             return ActionType.Jump;
         }
 
-        if (touch.position.x > Screen.width / 4 * 2 && touch.position.x < Screen.width/4*3)
+        if (touch.position.x > Screen.width / 4 * 2 && touch.position.x < Screen.width/4*3 && touch.position.y < Screen.height/2)
         {
-            debugText.text = "Attack";
-            return ActionType.Attack;
+            debugText.text = "Attack1";
+            return ActionType.Attack1;
+        }
+
+        if (touch.position.x > Screen.width/4*2 && touch.position.x < Screen.width/4*3 &&
+            touch.position.y > (Screen.height/2f) + 1)
+        {
+            debugText.text = "Attack2";
+            return ActionType.Attack2;
         }
 
         if (touch.position.x < Screen.width / 6f)

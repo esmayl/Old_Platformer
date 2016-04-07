@@ -78,7 +78,7 @@ public class Megaman : PlayerMovement {
         base.Update();
         //pointLight.transform.position = transform.position + transform.up*lightHeight;
 
-        if (attack)
+        if (attack1)
         {
             if (!powers[0]) { return; }
 
@@ -96,7 +96,21 @@ public class Megaman : PlayerMovement {
             StopCoroutine("Charge");
             anim.SetTrigger("Attack");
 
-            attack = false;
+            attack1 = false;
+        }
+        else if (attack2)
+        {
+            if (UseMP(powerHolder2.GetComponent<Power>().mpCost))
+            {
+                transition = true;
+                powerHolder2.GetComponent<Power>().shotSource = sourceAttack2;
+                powerHolder2.GetComponent<Power>().bulletSource = sourceAttack3;
+                powerHolder2.GetComponent<Power>().Attack(transform);
+                anim.SetTrigger("Attack");
+            }
+
+            attack2 = false;
+
         }
 
         if (useMobileInput) { return; }
@@ -110,7 +124,7 @@ public class Megaman : PlayerMovement {
                 powerHolder2.GetComponent<Power>().shotSource = sourceAttack2;
                 powerHolder2.GetComponent<Power>().bulletSource = sourceAttack3;
                 powerHolder2.GetComponent<Power>().Attack(transform);
-			    anim.SetTrigger("Attack");
+			    anim.SetTrigger("Attack1");
                 return;
             }
         }
@@ -125,7 +139,7 @@ public class Megaman : PlayerMovement {
                 powerHolder3.GetComponent<Power>().shotSource = sourceAttack2;
                 powerHolder3.GetComponent<Power>().bulletSource = sourceAttack3;
                 powerHolder3.GetComponent<Power>().Attack(transform);
-			    anim.SetTrigger("Attack");
+			    anim.SetTrigger("Attack1");
 
                 return;
             }
@@ -148,7 +162,7 @@ public class Megaman : PlayerMovement {
 
             holdTimer = 0;
             StopCoroutine("Charge");
-			anim.SetTrigger("Attack");
+			anim.SetTrigger("Attack1");
         }
         if (Input.GetButton("Fire1"))
         {
