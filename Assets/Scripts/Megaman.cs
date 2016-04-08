@@ -162,7 +162,7 @@ public class Megaman : PlayerMovement {
 
             holdTimer = 0;
             StopCoroutine("Charge");
-			anim.SetTrigger("Attack1");
+
         }
         if (Input.GetButton("Fire1"))
         {

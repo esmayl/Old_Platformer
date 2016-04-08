@@ -23,7 +23,7 @@ public class IceSpike : Bullet {
     float counter = 0;
 
 
-    void Start()
+    public override void Start()
     {
         StartCoroutine("DeathTimer");
 
@@ -90,7 +90,7 @@ public class IceSpike : Bullet {
 
         if (coll.tag == "Enemy")
         {
-            coll.gameObject.SendMessage("TakeDamage", baseDamage * weaponDamage);
+            coll.gameObject.GetComponent<EnemyBase>().TakeDamage(baseDamage * weaponDamage);
             StartCoroutine("DeathTimer");
         }
         if (coll.tag == "Ground")

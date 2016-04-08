@@ -5,7 +5,7 @@ public class SpawnPoint : MonoBehaviour
 {
 
     public GameObject player;
-    public GameObject camera;
+    public GameObject _camera;
     public float cameraRange = 8;
 
 	void Start ()
@@ -17,7 +17,7 @@ public class SpawnPoint : MonoBehaviour
 
         if (!player.GetComponent<Rigidbody>()) { player.AddComponent<Rigidbody>();}
         if (player) { playerInstance  = Instantiate(player, transform.position, Quaternion.identity)as GameObject;}
-        if (camera) { cameraInstance = (GameObject)Instantiate(camera, new Vector3(cameraRange, transform.position.y, transform.position.z), Quaternion.identity); cameraInstance.GetComponent<LevelCamera>().player = playerInstance; cameraInstance.transform.LookAt(transform); cameraInstance.GetComponent<LevelCamera>().cameraDistance = cameraRange; }
+        if (_camera) { cameraInstance = (GameObject)Instantiate(_camera, new Vector3(cameraRange, transform.position.y, transform.position.z), Quaternion.identity); cameraInstance.GetComponent<LevelCamera>().player = playerInstance; cameraInstance.transform.LookAt(transform); cameraInstance.GetComponent<LevelCamera>().cameraDistance = cameraRange; }
     }
 	
 	// Update is called once per frame

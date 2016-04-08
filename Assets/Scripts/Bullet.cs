@@ -6,7 +6,6 @@ public class Bullet : MonoBehaviour {
     public AudioSource shotSource;
     public AudioSource bulletSound;
     public GameObject hitParticle;
-    public GameObject connectedSkillParticle;
     internal float baseDamage=1f;
     public float weaponDamage = 1f;
     public float lifeTime = 5;
@@ -56,7 +55,7 @@ public class Bullet : MonoBehaviour {
                     Debug.Log("Hit enemy");
 
                     StartCoroutine("Hit", coll.contacts[0].point);
-                    coll.gameObject.SendMessage("TakeDamage", baseDamage * weaponDamage);
+                    coll.gameObject.GetComponent<EnemyBase>().TakeDamage(baseDamage * weaponDamage);
                     Destroy(GetComponent<Rigidbody>());
                 }
                 return;
@@ -71,7 +70,7 @@ public class Bullet : MonoBehaviour {
 
             if (coll.gameObject.tag == "Player")
             {
-                coll.gameObject.SendMessage("TakeDamage", baseDamage * weaponDamage);
+                coll.gameObject.GetComponent<PlayerMovement>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage));
                 StartCoroutine("Hit", coll.contacts[0].point);
                 Destroy(GetComponent<Rigidbody>());
             }
@@ -81,6 +80,9 @@ public class Bullet : MonoBehaviour {
 
     public IEnumerator Hit(Vector3 particlePos)
     {
+
+        StopCoroutine("DeathTimer");
+
         var t = Instantiate(hitParticle, particlePos, Quaternion.identity) as GameObject;
         t.SetActive(true);
         yield return new WaitForSeconds(1);

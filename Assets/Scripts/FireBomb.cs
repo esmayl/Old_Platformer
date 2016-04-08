@@ -8,7 +8,8 @@ public class FireBomb : Bullet {
     GameObject explosion;
     float fireCounter;
 
-	void Start () {
+	public override void Start ()
+    {
         StartCoroutine("AutoExplosion");
         controller = GetComponent<Rigidbody>();
 	}
@@ -35,6 +36,7 @@ public class FireBomb : Bullet {
 
     public void DoExplosion()
     {
+        StopCoroutine("AutoExplosion");
         explosion = Instantiate(hitParticle, transform.position, Quaternion.identity) as GameObject;
         if (bulletSound)
         {
@@ -62,7 +64,7 @@ public class FireBomb : Bullet {
                 }
             }
             explosion = Instantiate(particle2, transform.position, Quaternion.identity) as GameObject;
-            col.gameObject.SendMessage("TakeDamage", baseDamage * weaponDamage);
+            col.gameObject.GetComponent<EnemyBase>().TakeDamage(baseDamage * weaponDamage);
             Destroy(gameObject);
         }
         if (col.gameObject.tag == "Ground")
@@ -91,7 +93,7 @@ public class FireBomb : Bullet {
                 }
             }
             explosion = Instantiate(particle2, transform.position, Quaternion.identity) as GameObject;
-            col.gameObject.SendMessage("TakeDamage", baseDamage * weaponDamage);
+            col.gameObject.GetComponent<PlayerMovement>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage));
             Destroy(gameObject);
         }
         if (col.gameObject.tag == "Boss") 
