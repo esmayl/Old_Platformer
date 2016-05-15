@@ -28,6 +28,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11464160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,6 +40,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7c5e720d40f3c458677d0df182e867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items:
+  - {fileID: 103942, guid: a11973b8dd20e7e4c828e3b4880d3b37, type: 2}
+  - {fileID: 117706, guid: efa80a8696bb51e459794a943a5d3024, type: 2}
+  - {fileID: 173058, guid: dfa976a2ae0f1d84394f2164b8ea716c, type: 2}
+  - {fileID: 1000012562247294, guid: f7ae8f4c89276e740b3634dd80a8c6d1, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -50,4 +56,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164160}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

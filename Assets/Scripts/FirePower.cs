@@ -14,7 +14,7 @@ public class FirePower : Power {
     {
         if (instance) { return; }
 
-        gun = player.GetComponent<PlayerMovement>().gun;
+        gun = player.GetComponent<PlayerBase>().gun;
 
         if (shotSound)
         {

@@ -10,11 +10,12 @@ public class MiniBoss : BossBase {
 
 	}
 
-    public override void Attack2()
+    public void Attack2()
     {
         attack2Counter++;
 
         pos = new Vector3[] {transform.position + transform.forward * 2+transform.up *1.5f, transform.position + transform.forward*2 + transform.up * 2};
+
             foreach (Vector3 v in pos)
             {
                 GameObject temp = (GameObject)Instantiate(rocket, v, Quaternion.identity);

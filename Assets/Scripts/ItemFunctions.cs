@@ -44,9 +44,9 @@ public class ItemFunctions : MonoBehaviour {
     {
         if (col.tag == "Player" && !item.pickedUp)
         {
-            if (col.GetComponent<PlayerMovement>())
+            if (col.GetComponent<PlayerBase>())
             {
-                col.GetComponent<PlayerMovement>().UseItem(item);
+                col.GetComponent<PlayerBase>().UseItem(item);
                 Camera.main.GetComponentInParent<LevelCamera>().AddScore();
                 transform.GetComponent<Collider>().enabled = false;
                 StartCoroutine("PickedUp");

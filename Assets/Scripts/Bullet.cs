@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour {
 				controller.velocity = transform.forward * bulletSpeed;
                 if (player)
                 {
-                    player.GetComponent<PlayerMovement>().transition = false;
+                    player.GetComponent<PlayerBase>().transition = false;
                 }
 			}
 
@@ -63,6 +63,17 @@ public class Bullet : MonoBehaviour {
                 StartCoroutine("Hit", coll.contacts[0].point);
                 Destroy(GetComponent<Rigidbody>());
                 return;
+            case "Boss":
+                if (gameObject.layer != LayerMask.NameToLayer("EnemyProjectiles"))
+                {
+                    Debug.Log("Hit boss");
+
+                    StartCoroutine("Hit", coll.contacts[0].point);
+                    coll.gameObject.GetComponent<BossBase>().TakeDamage(baseDamage * weaponDamage);
+                    Destroy(GetComponent<Rigidbody>());
+                }
+                return;
+
         }
 
        if (gameObject.layer == LayerMask.NameToLayer("EnemyProjectiles"))
@@ -70,7 +81,7 @@ public class Bullet : MonoBehaviour {
 
             if (coll.gameObject.tag == "Player")
             {
-                coll.gameObject.GetComponent<PlayerMovement>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage));
+                coll.gameObject.GetComponent<PlayerBase>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage));
                 StartCoroutine("Hit", coll.contacts[0].point);
                 Destroy(GetComponent<Rigidbody>());
             }

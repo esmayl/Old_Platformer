@@ -34,9 +34,9 @@ public class IcePower : Power
         }
 
 
-        if (player.GetComponent<PlayerMovement>())
+        if (player.GetComponent<PlayerBase>())
         {
-            gun = player.GetComponent<PlayerMovement>().gun;
+            gun = player.GetComponent<PlayerBase>().gun;
             iceDirection = gun.transform.forward;
 
         }

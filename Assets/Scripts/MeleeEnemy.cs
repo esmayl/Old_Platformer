@@ -14,7 +14,7 @@ public class MeleeEnemy : EnemyBase
         base.Update();
     }
 
-    public override void Patrol()
+    public new void Patrol()
     {
         base.Patrol();
         
@@ -23,7 +23,7 @@ public class MeleeEnemy : EnemyBase
         testMat.SetColor("_EmissionColor", Color.green);
     }
 
-    public override void Attack()
+    public new void Attack()
     {
         base.Attack();
     }

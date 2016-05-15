@@ -93,7 +93,7 @@ public class FireBomb : Bullet {
                 }
             }
             explosion = Instantiate(particle2, transform.position, Quaternion.identity) as GameObject;
-            col.gameObject.GetComponent<PlayerMovement>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage));
+            col.gameObject.GetComponent<PlayerBase>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage));
             Destroy(gameObject);
         }
         if (col.gameObject.tag == "Boss") 

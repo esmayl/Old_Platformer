@@ -9,6 +9,9 @@ public class MobileInput : MonoBehaviour
 {
     public Text debugText;
 
+    private float seconds = 0;
+    private int frameCounter = 0;
+
     void Start()
     {
         if (debugText == null)
@@ -19,6 +22,19 @@ public class MobileInput : MonoBehaviour
 
     public void Update()
     {
+
+        if (seconds > 1)
+        {
+            debugText.text = frameCounter + " fps";
+            seconds = 0;
+            frameCounter = 0;
+        }
+        else
+        {
+            seconds += Time.deltaTime;
+            frameCounter++;
+        }
+
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             Application.Quit();

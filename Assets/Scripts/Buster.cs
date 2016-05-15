@@ -36,7 +36,7 @@ public class Buster : Power
             }
         }
 
-        gun = player.GetComponent<PlayerMovement>().gun;
+        gun = player.GetComponent<PlayerBase>().gun;
 
 
         Vector3 start = gun.transform.position;

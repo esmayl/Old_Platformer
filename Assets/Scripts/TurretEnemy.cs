@@ -81,7 +81,7 @@ public class TurretEnemy : EnemyBase {
         }
     }
 
-    public override void Attack()
+    public void Attack()
     {
 
         // doesnt use direction

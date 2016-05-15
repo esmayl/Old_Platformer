@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Megaman : PlayerMovement {
+public class Megaman : PlayerBase {
 
     public static Megaman playerRef;
 
@@ -76,7 +76,6 @@ public class Megaman : PlayerMovement {
     public override void Update()
     {
         base.Update();
-        //pointLight.transform.position = transform.position + transform.up*lightHeight;
 
         if (attack1)
         {
@@ -86,7 +85,6 @@ public class Megaman : PlayerMovement {
             if (powerHolder3.GetComponent<Power>().Detonate()) { return; }
 
             chargeLevel = 0;
-            transition = true;
 
             powerHolder1.GetComponent<Power>().shotSource = sourceAttack1;
             powerHolder1.GetComponent<Buster>().chargeLevel = chargeLevel;
@@ -102,7 +100,6 @@ public class Megaman : PlayerMovement {
         {
             if (UseMP(powerHolder2.GetComponent<Power>().mpCost))
             {
-                transition = true;
                 powerHolder2.GetComponent<Power>().shotSource = sourceAttack2;
                 powerHolder2.GetComponent<Power>().bulletSource = sourceAttack3;
                 powerHolder2.GetComponent<Power>().Attack(transform);
@@ -115,35 +112,35 @@ public class Megaman : PlayerMovement {
 
         if (useMobileInput) { return; }
 
-        if (combo1.Check())
-        {
-            if (!powers[1]) { return; }
-            if (UseMP(powerHolder2.GetComponent<Power>().mpCost))
-            {
-                transition = true;
-                powerHolder2.GetComponent<Power>().shotSource = sourceAttack2;
-                powerHolder2.GetComponent<Power>().bulletSource = sourceAttack3;
-                powerHolder2.GetComponent<Power>().Attack(transform);
-			    anim.SetTrigger("Attack1");
-                return;
-            }
-        }
-
-        if (combo2.Check())
-        {
-            if (!powers[2]) { return; }
-
-            if (UseMP(powerHolder3.GetComponent<Power>().mpCost))
-            {
-                transition = true;
-                powerHolder3.GetComponent<Power>().shotSource = sourceAttack2;
-                powerHolder3.GetComponent<Power>().bulletSource = sourceAttack3;
-                powerHolder3.GetComponent<Power>().Attack(transform);
-			    anim.SetTrigger("Attack1");
-
-                return;
-            }
-        }
+        //if (combo1.Check())
+        //{
+        //    if (!powers[1]) { return; }
+        //    if (UseMP(powerHolder2.GetComponent<Power>().mpCost))
+        //    {
+        //        transition = true;
+        //        powerHolder2.GetComponent<Power>().shotSource = sourceAttack2;
+        //        powerHolder2.GetComponent<Power>().bulletSource = sourceAttack3;
+        //        powerHolder2.GetComponent<Power>().Attack(transform);
+		//	    anim.SetTrigger("Attack1");
+        //        return;
+        //    }
+        //}
+        //
+        //if (combo2.Check())
+        //{
+        //    if (!powers[2]) { return; }
+        //
+        //    if (UseMP(powerHolder3.GetComponent<Power>().mpCost))
+        //    {
+        //        transition = true;
+        //        powerHolder3.GetComponent<Power>().shotSource = sourceAttack2;
+        //        powerHolder3.GetComponent<Power>().bulletSource = sourceAttack3;
+        //        powerHolder3.GetComponent<Power>().Attack(transform);
+		//	    anim.SetTrigger("Attack1");
+        //
+        //        return;
+        //    }
+        //}
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -154,7 +151,6 @@ public class Megaman : PlayerMovement {
             if (powerHolder3.GetComponent<Power>().Detonate()) { return; }
 
             chargeLevel = 0;
-            transition = true;
 
             powerHolder1.GetComponent<Power>().shotSource = sourceAttack1;
             powerHolder1.GetComponent<Buster>().chargeLevel = chargeLevel;
@@ -164,6 +160,7 @@ public class Megaman : PlayerMovement {
             StopCoroutine("Charge");
 
         }
+
         if (Input.GetButton("Fire1"))
         {
                 holdTimer += Time.deltaTime;
@@ -185,6 +182,7 @@ public class Megaman : PlayerMovement {
                 }
             
         }
+
         if (Input.GetButtonUp("Fire1"))
         {
             if (holdTimer > 0.5f)
@@ -194,7 +192,6 @@ public class Megaman : PlayerMovement {
                 powerHolder1.GetComponent<Power>().Attack(transform);
                 chargePInstance.SetActive(false);
             }
-                transition = true;
                 holdTimer = 0;
                 chargeLevel = 0;
                 

@@ -9,11 +9,11 @@ public class LevelCamera : MonoBehaviour {
     public Text hptext;
     public Image chargeBar;
     public Text scoreText;
-    public float cameraDistance;
 
+    internal float cameraDistance;
+    internal float cameraHeight;
     internal int score = 0;
 
-    float height = 0f;
     Image[] hp = new Image[10];
     Image[] mp = new Image[10];
     RaycastHit hit;
@@ -30,9 +30,11 @@ public class LevelCamera : MonoBehaviour {
         }
         if (hptext)
         {
-            hptext.text = player.GetComponent<PlayerMovement>().hp * 10 + "%";
+            hptext.text = player.GetComponent<PlayerBase>().hp * 10 + "%";
         }
         scoreText.text = score.ToString("000000000");
+
+        transform.position = new Vector3(cameraDistance, player.transform.position.y + cameraHeight, Mathf.Lerp(transform.position.z, player.transform.position.z + 3f, 1));
 
     }
 
@@ -40,14 +42,12 @@ public class LevelCamera : MonoBehaviour {
     {
         if (CompareHeight(player.transform))
         {
-            height = Mathf.Lerp(height, player.transform.position.y, Time.deltaTime);
+            cameraHeight = Mathf.Lerp(cameraHeight, player.transform.position.y, Time.fixedDeltaTime);
         }
 
-        if (height < 2)
-        {
-            height = 2;
-        }
-        transform.position = new Vector3(cameraDistance, height, player.transform.position.z+3f );
+
+
+        transform.position = new Vector3(cameraDistance, player.transform.position.y+ cameraHeight, Mathf.Lerp(transform.position.z,player.transform.position.z+3f,Time.fixedDeltaTime));
 
     }
 
@@ -61,12 +61,7 @@ public class LevelCamera : MonoBehaviour {
         {
             return true;
         }
-        if (diff.y < 2)
-        {
-            height = Mathf.Lerp(height, player.transform.position.y, Time.deltaTime * 10);
-            return true;
-        }
-        if (height < 1)
+        if (Mathf.Abs(diff.y) < 4)
         {
             return false;
         }
@@ -75,31 +70,31 @@ public class LevelCamera : MonoBehaviour {
 
     public void RemoveHP()
     {
-        if (player.GetComponent<PlayerMovement>().hp > 0)
+        if (player.GetComponent<PlayerBase>().hp > 0)
         {
             if (hptext)
             {
-                hptext.text = player.GetComponent<PlayerMovement>().hp * 10 + "%";
+                hptext.text = player.GetComponent<PlayerBase>().hp * 10 + "%";
             }
-                hpBar.fillAmount = 0.2f+player.GetComponent<PlayerMovement>().hp / 10f*0.8f;
+                hpBar.fillAmount = 0.2f+player.GetComponent<PlayerBase>().hp / 10f*0.8f;
         }
     }
 
     public void AddHP()
     {
-        if (player.GetComponent<PlayerMovement>().hp > 0)
+        if (player.GetComponent<PlayerBase>().hp > 0)
         {
             if (hptext)
             {
-                hptext.text = player.GetComponent<PlayerMovement>().hp * 10 + "%";
+                hptext.text = player.GetComponent<PlayerBase>().hp * 10 + "%";
             }
-            hpBar.fillAmount = 0.2f + player.GetComponent<PlayerMovement>().hp / 10f * 0.8f;
+            hpBar.fillAmount = 0.2f + player.GetComponent<PlayerBase>().hp / 10f * 0.8f;
         }
     }
 
     public void AddMP()
     {
-        if (player.GetComponent<PlayerMovement>().mp >= 0)
+        if (player.GetComponent<PlayerBase>().mp >= 0)
         {
             fading = true;
             StartCoroutine("FadeInMPBar");
@@ -108,7 +103,7 @@ public class LevelCamera : MonoBehaviour {
 
     public void RemoveMP()
     {
-        if (player.GetComponent<PlayerMovement>().mp >= 0)
+        if (player.GetComponent<PlayerBase>().mp >= 0)
         {
             fading = true;
             StartCoroutine("FadeOutMPBar");
@@ -118,21 +113,21 @@ public class LevelCamera : MonoBehaviour {
     IEnumerator FadeOutMPBar()
     {
         if (fading) { yield return null; }
-        while (chargeBar.fillAmount > player.GetComponent<PlayerMovement>().mp / 10f) { chargeBar.fillAmount -= Time.deltaTime; yield return new WaitForEndOfFrame(); }
+        while (chargeBar.fillAmount > player.GetComponent<PlayerBase>().mp / 10f) { chargeBar.fillAmount -= Time.deltaTime; yield return new WaitForEndOfFrame(); }
         fading = false;
         StopCoroutine("FadeOutMPBar");
     }
     IEnumerator FadeInMPBar()
     {
         if (fading) { yield return null; }
-        while (chargeBar.fillAmount < player.GetComponent<PlayerMovement>().mp / 10f) { chargeBar.fillAmount += Time.deltaTime; yield return new WaitForEndOfFrame(); }
+        while (chargeBar.fillAmount < player.GetComponent<PlayerBase>().mp / 10f) { chargeBar.fillAmount += Time.deltaTime; yield return new WaitForEndOfFrame(); }
         fading = false;
         StopCoroutine("FadeInMPBar");
     }
 
     public void AddScore()
     {
-        if (player.GetComponent<PlayerMovement>().score >= 0)
+        if (player.GetComponent<PlayerBase>().score >= 0)
         {
             scoreText.text = "" + score.ToString("000000000");
         }

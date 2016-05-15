@@ -1,25 +1,23 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 using System.Collections;
 
 public class EnemyBullet : MonoBehaviour
 {
 
-    public AudioSource bulletSound;
-    public ParticleSystem particle;
     internal float baseDamage = 1f;
     public float weaponDamage = 1f;
-    public float lifeTime = 5;
     public int bulletSpeed = 5;
     public Transform player;
-    public float waitTime = 2;
 
     Rigidbody controller;
     float timer;
-
+    float waitTime = 2;
+    float lifeTime = 5;
 
     void Start()
     {
         controller = GetComponent<Rigidbody>();
+        timer = 0;
     }
 
     public virtual void FixedUpdate()
@@ -43,7 +41,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (coll.gameObject.tag == "Player")
         {
-            if(coll.gameObject.GetComponent<PlayerMovement>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage)))
+            if(coll.gameObject.GetComponent<PlayerBase>().TakeDamage(Mathf.FloorToInt(baseDamage * weaponDamage)))
             {
                 Destroy(gameObject);
             }

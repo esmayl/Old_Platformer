@@ -148,7 +148,6 @@ GameObject:
   - 81: {fileID: 8194424}
   - 92: {fileID: 9256332}
   - 114: {fileID: 11432794}
-  - 114: {fileID: 114000012158096836}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -232,7 +231,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132784}
   m_LocalRotation: {x: 0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 7.5, y: 2.01, z: 12.48}
+  m_LocalPosition: {x: 8.14, y: 2.01, z: 12.48}
   m_LocalScale: {x: 0.5, y: 0.42957798, z: 0.5}
   m_Children:
   - {fileID: 22407838}
@@ -269,7 +268,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
@@ -352,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0.5862069, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -541,7 +540,6 @@ MonoBehaviour:
   hptext: {fileID: 11488730}
   chargeBar: {fileID: 11406040}
   scoreText: {fileID: 11404056}
-  cameraDistance: 7.5
 --- !u!114 &11447592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -553,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.00886679, g: 0.3571173, b: 0.60294116, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -1151,21 +1149,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132784}
   m_IsPrefabParent: 1
---- !u!114 &114000012158096836
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 132784}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32187365ced0c42219cde2b57c99b323, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings:
-    threshold: 1.29
-    radius: 2.85
-    intensity: 0.42
-    highQuality: 0
-    antiFlicker: 1
-  m_Shader: {fileID: 4800000, guid: e45d4f28262b04d10a075856ab5fdb5e, type: 3}

@@ -7,7 +7,7 @@ public enum EnemyStates { Idle,Patrol,Attack,AttackAtPlayer}
 public enum EnemyTypes { Melee,Ranged,FlyingMelee,FlyingRanged}
 
 [RequireComponent(typeof(Rigidbody))]
-public class EnemyBase : MonoBehaviour {
+public class EnemyBase : MonoBehaviour,EnemyInterface {
 
     public EnemyTypes enemyType = EnemyTypes.Ranged;
     public EnemyStates currentState = EnemyStates.Patrol;
@@ -54,7 +54,7 @@ public class EnemyBase : MonoBehaviour {
         {
             if (Mathf.Abs(Vector3.Distance(player.transform.position, transform.position)) < meleeRange)
             {
-                player.GetComponent<PlayerMovement>().TakeDamage(meleeDamage);
+                player.GetComponent<PlayerBase>().TakeDamage(meleeDamage);
                 velocity = Vector3.zero;
 
             }
@@ -82,6 +82,13 @@ public class EnemyBase : MonoBehaviour {
             Destroy(gameObject);
         }
         hp -= damage;
+
+        if (hp <= 0)
+        {
+            ItemDatabase.DropItem(transform.position, transform.name);
+            Destroy(gameObject);
+        }
+
         StartCoroutine("DamageFlash");  
     }
 
@@ -98,11 +105,6 @@ public class EnemyBase : MonoBehaviour {
         }
         enemyMaterial.color = tempColor;
 
-        if (hp <= 0)
-        {
-            ItemDatabase.DropItem(transform.position, transform.name);
-            Destroy(gameObject);
-        }
         StopCoroutine("DamageFlash");
     }
     public virtual void Jump() { }
@@ -184,7 +186,7 @@ public class EnemyBase : MonoBehaviour {
                             //using sphere cast to fake damage on collision
                             if (Mathf.Abs(Vector3.Distance(target.transform.position, transform.position)) < meleeRange)
                             {
-                                player.gameObject.GetComponent<PlayerMovement>().TakeDamage(meleeDamage);
+                                player.gameObject.GetComponent<PlayerBase>().TakeDamage(meleeDamage);
                             }
                         }
                     }
@@ -216,7 +218,7 @@ public class EnemyBase : MonoBehaviour {
         currentState = EnemyStates.Patrol;
     }
 
-    public virtual void Attack() 
+    public void Attack() 
     {
 
         if (!player)
